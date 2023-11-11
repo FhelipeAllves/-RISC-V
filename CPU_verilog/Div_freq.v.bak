@@ -1,0 +1,19 @@
+//************************DIVISOR DE FREQUÊNCIA****************************************
+module FreqDiv(input clk_50MHz, output reg clk_1Hz);
+
+  reg [25:0] cont = 0;
+
+  always @(posedge clk_50MHz) 
+    begin
+    cont = cont + 1;
+      
+      if (cont == 25000000) 
+    begin
+      cont = 0;
+      clk_1Hz = ~clk_1Hz;
+    end 
+
+      
+  end
+
+endmodule

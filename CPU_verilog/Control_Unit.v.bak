@@ -1,0 +1,34 @@
+module Control_Unit(input [6:0] op, Funct7,
+                    input [2:0] Funct3,
+	output reg RegWrite, ULASrc,
+	output reg [2:0] ULAControl);
+	
+	always@(*) begin
+    
+	    	casex( {op,Funct3, Funct7} )
+		      17'b01100110000000000: // ADD
+		      {RegWrite, ULASrc, ULAControl} = 5'b10000;
+
+		      17'b01100110000100000: // SUB
+		      {RegWrite, ULASrc, ULAControl} = 5'b10001;
+
+		      17'b01100111110000000: // AND
+		      {RegWrite, ULASrc, ULAControl} = 5'b10010;
+
+		      17'b01100111100000000: // OR
+		      {RegWrite, ULASrc, ULAControl} = 5'b10011;
+
+		      17'b01100101000000000: // SLT
+		      {RegWrite, ULASrc, ULAControl} = 5'b10101;
+
+		      17'b0010011000xxxxxxx: // ADDI
+		      {RegWrite, ULASrc, ULAControl} = 5'b11000;
+
+		      default: 
+		      {RegWrite, ULASrc, ULAControl} = 5'b00000;
+		      
+	    	endcase	
+    
+    	end
+
+endmodule

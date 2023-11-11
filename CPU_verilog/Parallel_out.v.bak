@@ -1,0 +1,11 @@
+module Parallel_out (input EN, clk, rst, 
+		     input reg [7:0] Address, RegData,
+		     output reg [7:0] DataOut
+);
+
+	reg en = EN && Address
+	always @(posedge clk, negedge rst) begin
+		DataOut <= RegData;
+	end 
+
+endmodule

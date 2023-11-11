@@ -1,0 +1,32 @@
+module bank_register(input [7:0] wd3,
+                     input we3,
+                     input [2:0] wa3,
+                     input clk,
+                     input rst,
+                     input [2:0] ra1,
+                     input [2:0] ra2, 
+                     output [7:0] rd1, 
+                     output [7:0] rd2
+						
+);
+	wire [7:0] wr1, wr2, wr3, wr4, wr5, wr6, wr7;
+	wire [7:0] w_decod;
+	wire [7:0] w_enable;
+	
+	decoder decod(wa3, w_decod);	
+	
+	assign w_enable = w_decod & {8{we3}};
+	
+	registrador r1(wd3, w_enable[1], clk, rst, wr1),
+		    r2(wd3, w_enable[2], clk, rst, wr2),
+		    r3(wd3, w_enable[3], clk, rst, wr3),
+		    r4(wd3, w_enable[4], clk, rst, wr4),
+		    r5(wd3, w_enable[5], clk, rst, wr5),
+		    r6(wd3, w_enable[6], clk, rst, wr6),
+		    r7(wd3, w_enable[7], clk, rst, wr7);
+	
+	mux_8_1 mux1(8'b0, wr1, wr2, wr3, wr4, wr5, wr6, wr7, ra1, rd1),
+          	mux2(8'b0,wr1,wr2,wr3,wr4,wr5,wr6,wr7,ra2, rd2);
+
+endmodule
+
