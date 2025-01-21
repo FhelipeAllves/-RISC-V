@@ -1,2 +1,2 @@
 # -RISC-V
-Processador RISC-V ciclo único
+Single-cycle RISC-V processor
